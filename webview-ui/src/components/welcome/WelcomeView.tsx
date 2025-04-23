@@ -37,11 +37,11 @@ const WelcomeView = () => {
 	return (
 		<Tab>
 			<TabContent className="flex flex-col gap-5">
-				<RooHero />
+				{/* <RooHero /> */}
 
-				<div className="outline rounded p-4">
+				{/* <div className="outline rounded p-4">
 					<Trans i18nKey="welcome:introduction" />
-				</div>
+				</div> */}
 
 				<div className="mb-4">
 					<h4 className="mt-3 mb-2 text-center">{t("welcome:startCustom")}</h4>
