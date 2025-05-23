@@ -286,9 +286,7 @@
 						"type": "string"
 					},
 					"default": [
-						"npm test",
-						"npm install",
-						"tsc",
+						"mkdir",
 						"git log",
 						"git diff",
 						"git show"
