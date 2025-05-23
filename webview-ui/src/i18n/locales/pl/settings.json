@@ -79,6 +79,11 @@
 			"allowedCommandsDescription": "Prefiksy poleceń, które mogą być automatycznie wykonywane, gdy \"Zawsze zatwierdzaj operacje wykonania\" jest włączone. Dodaj * aby zezwolić na wszystkie polecenia (używaj z ostrożnością).",
 			"commandPlaceholder": "Wprowadź prefiks polecenia (np. 'git ')",
 			"addButton": "Dodaj"
+		},
+		"apiRequestLimit": {
+			"title": "Maksymalna liczba żądań",
+			"description": "Automatycznie wykonaj tyle żądań API przed poproszeniem o zgodę na kontynuowanie zadania.",
+			"unlimited": "Bez limitu"
 		}
 	},
 	"providers": {
@@ -185,6 +190,8 @@
 		},
 		"unboundApiKey": "Klucz API Unbound",
 		"getUnboundApiKey": "Uzyskaj klucz API Unbound",
+		"unboundRefreshModelsSuccess": "Lista modeli zaktualizowana! Możesz teraz wybierać spośród najnowszych modeli.",
+		"unboundInvalidApiKey": "Nieprawidłowy klucz API. Sprawdź swój klucz API i spróbuj ponownie.",
 		"humanRelay": {
 			"description": "Nie jest wymagany klucz API, ale użytkownik będzie musiał pomóc w kopiowaniu i wklejaniu informacji do czatu internetowego AI.",
 			"instructions": "Podczas użytkowania pojawi się okno dialogowe, a bieżąca wiadomość zostanie automatycznie skopiowana do schowka. Będziesz musiał wkleić ją do internetowych wersji AI (takich jak ChatGPT lub Claude), a następnie skopiować odpowiedź AI z powrotem do okna dialogowego i kliknąć przycisk potwierdzenia."
@@ -396,9 +403,25 @@
 	},
 	"experimental": {
 		"warning": "⚠️",
+		"condensingApiConfiguration": {
+			"label": "API Configuration for Context Condensing",
+			"description": "Select which API configuration to use for context condensing operations. Leave unselected to use the current active configuration.",
+			"useCurrentConfig": "Default"
+		},
+		"customCondensingPrompt": {
+			"label": "Niestandardowy monit kondensacji kontekstu",
+			"description": "Niestandardowy monit systemowy dla kondensacji kontekstu. Pozostaw puste, aby użyć domyślnego monitu.",
+			"placeholder": "Enter your custom condensing prompt here...\n\nYou can use the same structure as the default prompt:\n- Previous Conversation\n- Current Work\n- Key Technical Concepts\n- Relevant Files and Code\n- Problem Solving\n- Pending Tasks and Next Steps",
+			"reset": "Reset to Default",
+			"hint": "Empty = use default prompt"
+		},
+		"autoCondenseContextPercent": {
+			"label": "Próg wyzwalający inteligentną kondensację kontekstu",
+			"description": "Gdy okno kontekstu osiągnie ten próg, Roo automatycznie je skondensuje."
+		},
 		"AUTO_CONDENSE_CONTEXT": {
-			"name": "Inteligentnie kondensuj okno kontekstu",
-			"description": "Używa wywołania LLM do podsumowania wcześniejszej rozmowy, gdy okno kontekstu zadania jest prawie pełne, zamiast usuwać stare wiadomości. Zastrzeżenie: koszt podsumowania nie jest obecnie uwzględniony w kosztach API pokazywanych w interfejsie."
+			"name": "Automatycznie wyzwalaj inteligentną kondensację kontekstu",
+			"description": "Inteligentna kondensacja kontekstu używa wywołania LLM do podsumowania wcześniejszej rozmowy, gdy okno kontekstu zadania osiągnie ustawiony próg, zamiast usuwać stare wiadomości, gdy kontekst się zapełni."
 		},
 		"DIFF_STRATEGY_UNIFIED": {
 			"name": "Użyj eksperymentalnej ujednoliconej strategii diff",
@@ -461,7 +484,7 @@
 		"useCustomModel": "Użyj niestandardowy: {{modelId}}"
 	},
 	"footer": {
-		"feedback": "Jeśli masz jakiekolwiek pytania lub opinie, śmiało otwórz zgłoszenie na <githubLink>github.com/RooVetGit/Roo-Code</githubLink> lub dołącz do <redditLink>reddit.com/r/RooCode</redditLink> lub <discordLink>discord.gg/roocode</discordLink>",
+		"feedback": "Jeśli masz jakiekolwiek pytania lub opinie, śmiało otwórz zgłoszenie na <githubLink>github.com/RooCodeInc/Roo-Code</githubLink> lub dołącz do <redditLink>reddit.com/r/RooCode</redditLink> lub <discordLink>discord.gg/roocode</discordLink>",
 		"telemetry": {
 			"label": "Zezwól na anonimowe raportowanie błędów i użycia",
 			"description": "Pomóż ulepszyć Roo Code, wysyłając anonimowe dane o użytkowaniu i raporty o błędach. Nigdy nie są wysyłane kod, podpowiedzi ani informacje osobiste. Zobacz naszą politykę prywatności, aby uzyskać więcej szczegółów."
