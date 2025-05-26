@@ -61,6 +61,33 @@ type GlobalSettings = {
 	autoApprovalEnabled?: boolean | undefined
 	alwaysAllowReadOnly?: boolean | undefined
 	alwaysAllowReadOnlyOutsideWorkspace?: boolean | undefined
+	codebaseIndexModels?:
+		| {
+				openai?:
+					| {
+							[x: string]: {
+								dimension: number
+							}
+					  }
+					| undefined
+				ollama?:
+					| {
+							[x: string]: {
+								dimension: number
+							}
+					  }
+					| undefined
+		  }
+		| undefined
+	codebaseIndexConfig?:
+		| {
+				codebaseIndexEnabled?: boolean | undefined
+				codebaseIndexQdrantUrl?: string | undefined
+				codebaseIndexEmbedderProvider?: ("openai" | "ollama") | undefined
+				codebaseIndexEmbedderBaseUrl?: string | undefined
+				codebaseIndexEmbedderModelId?: string | undefined
+		  }
+		| undefined
 	alwaysAllowWrite?: boolean | undefined
 	alwaysAllowWriteOutsideWorkspace?: boolean | undefined
 	writeDelayMs?: number | undefined
@@ -72,7 +99,7 @@ type GlobalSettings = {
 	alwaysAllowSubtasks?: boolean | undefined
 	alwaysAllowExecute?: boolean | undefined
 	allowedCommands?: string[] | undefined
-	allowedMaxRequests?: number | undefined
+	allowedMaxRequests?: (number | null) | undefined
 	autoCondenseContextPercent?: number | undefined
 	browserToolEnabled?: boolean | undefined
 	browserViewportSize?: string | undefined
@@ -228,11 +255,12 @@ type ProviderSettings = {
 		  )
 		| undefined
 	includeMaxTokens?: boolean | undefined
-	reasoningEffort?: ("low" | "medium" | "high") | undefined
 	diffEnabled?: boolean | undefined
 	fuzzyMatchThreshold?: number | undefined
 	modelTemperature?: (number | null) | undefined
 	rateLimitSeconds?: number | undefined
+	enableReasoningEffort?: boolean | undefined
+	reasoningEffort?: ("low" | "medium" | "high") | undefined
 	modelMaxTokens?: number | undefined
 	modelMaxThinkingTokens?: number | undefined
 	apiModelId?: string | undefined
@@ -272,13 +300,16 @@ type ProviderSettings = {
 				supportsImages?: boolean | undefined
 				supportsComputerUse?: boolean | undefined
 				supportsPromptCache: boolean
+				supportsReasoningBudget?: boolean | undefined
+				requiredReasoningBudget?: boolean | undefined
+				supportsReasoningEffort?: boolean | undefined
+				supportedParameters?: ("max_tokens" | "temperature" | "reasoning" | "include_reasoning")[] | undefined
 				inputPrice?: number | undefined
 				outputPrice?: number | undefined
 				cacheWritesPrice?: number | undefined
 				cacheReadsPrice?: number | undefined
 				description?: string | undefined
 				reasoningEffort?: ("low" | "medium" | "high") | undefined
-				thinking?: boolean | undefined
 				minTokensPerCachePoint?: number | undefined
 				maxCachePoints?: number | undefined
 				cachableFields?: string[] | undefined
@@ -296,7 +327,6 @@ type ProviderSettings = {
 	openAiUseAzure?: boolean | undefined
 	azureApiVersion?: string | undefined
 	openAiStreamingEnabled?: boolean | undefined
-	enableReasoningEffort?: boolean | undefined
 	openAiHostHeader?: string | undefined
 	openAiHeaders?:
 		| {
@@ -336,6 +366,8 @@ type ProviderSettings = {
 	litellmBaseUrl?: string | undefined
 	litellmApiKey?: string | undefined
 	litellmModelId?: string | undefined
+	codeIndexOpenAiKey?: string | undefined
+	codeIndexQdrantApiKey?: string | undefined
 }
 
 type ProviderSettingsEntry = {
@@ -411,6 +443,7 @@ type ClineMessage = {
 				| "rooignore_error"
 				| "diff_error"
 				| "condense_context"
+				| "codebase_search_result"
 		  )
 		| undefined
 	text?: string | undefined
@@ -496,6 +529,7 @@ type RooCodeEvents = {
 							| "rooignore_error"
 							| "diff_error"
 							| "condense_context"
+							| "codebase_search_result"
 					  )
 					| undefined
 				text?: string | undefined
@@ -581,6 +615,7 @@ type RooCodeEvents = {
 			| "switch_mode"
 			| "new_task"
 			| "fetch_instructions"
+			| "codebase_search"
 		),
 		string,
 	]
@@ -631,11 +666,12 @@ type IpcMessage =
 									  )
 									| undefined
 								includeMaxTokens?: boolean | undefined
-								reasoningEffort?: ("low" | "medium" | "high") | undefined
 								diffEnabled?: boolean | undefined
 								fuzzyMatchThreshold?: number | undefined
 								modelTemperature?: (number | null) | undefined
 								rateLimitSeconds?: number | undefined
+								enableReasoningEffort?: boolean | undefined
+								reasoningEffort?: ("low" | "medium" | "high") | undefined
 								modelMaxTokens?: number | undefined
 								modelMaxThinkingTokens?: number | undefined
 								apiModelId?: string | undefined
@@ -675,13 +711,18 @@ type IpcMessage =
 											supportsImages?: boolean | undefined
 											supportsComputerUse?: boolean | undefined
 											supportsPromptCache: boolean
+											supportsReasoningBudget?: boolean | undefined
+											requiredReasoningBudget?: boolean | undefined
+											supportsReasoningEffort?: boolean | undefined
+											supportedParameters?:
+												| ("max_tokens" | "temperature" | "reasoning" | "include_reasoning")[]
+												| undefined
 											inputPrice?: number | undefined
 											outputPrice?: number | undefined
 											cacheWritesPrice?: number | undefined
 											cacheReadsPrice?: number | undefined
 											description?: string | undefined
 											reasoningEffort?: ("low" | "medium" | "high") | undefined
-											thinking?: boolean | undefined
 											minTokensPerCachePoint?: number | undefined
 											maxCachePoints?: number | undefined
 											cachableFields?: string[] | undefined
@@ -699,7 +740,6 @@ type IpcMessage =
 								openAiUseAzure?: boolean | undefined
 								azureApiVersion?: string | undefined
 								openAiStreamingEnabled?: boolean | undefined
-								enableReasoningEffort?: boolean | undefined
 								openAiHostHeader?: string | undefined
 								openAiHeaders?:
 									| {
@@ -739,6 +779,8 @@ type IpcMessage =
 								litellmBaseUrl?: string | undefined
 								litellmApiKey?: string | undefined
 								litellmModelId?: string | undefined
+								codeIndexOpenAiKey?: string | undefined
+								codeIndexQdrantApiKey?: string | undefined
 								currentApiConfigName?: string | undefined
 								listApiConfigMeta?:
 									| {
@@ -798,6 +840,33 @@ type IpcMessage =
 								autoApprovalEnabled?: boolean | undefined
 								alwaysAllowReadOnly?: boolean | undefined
 								alwaysAllowReadOnlyOutsideWorkspace?: boolean | undefined
+								codebaseIndexModels?:
+									| {
+											openai?:
+												| {
+														[x: string]: {
+															dimension: number
+														}
+												  }
+												| undefined
+											ollama?:
+												| {
+														[x: string]: {
+															dimension: number
+														}
+												  }
+												| undefined
+									  }
+									| undefined
+								codebaseIndexConfig?:
+									| {
+											codebaseIndexEnabled?: boolean | undefined
+											codebaseIndexQdrantUrl?: string | undefined
+											codebaseIndexEmbedderProvider?: ("openai" | "ollama") | undefined
+											codebaseIndexEmbedderBaseUrl?: string | undefined
+											codebaseIndexEmbedderModelId?: string | undefined
+									  }
+									| undefined
 								alwaysAllowWrite?: boolean | undefined
 								alwaysAllowWriteOutsideWorkspace?: boolean | undefined
 								writeDelayMs?: number | undefined
@@ -809,7 +878,7 @@ type IpcMessage =
 								alwaysAllowSubtasks?: boolean | undefined
 								alwaysAllowExecute?: boolean | undefined
 								allowedCommands?: string[] | undefined
-								allowedMaxRequests?: number | undefined
+								allowedMaxRequests?: (number | null) | undefined
 								autoCondenseContextPercent?: number | undefined
 								browserToolEnabled?: boolean | undefined
 								browserViewportSize?: string | undefined
@@ -979,6 +1048,7 @@ type IpcMessage =
 												| "rooignore_error"
 												| "diff_error"
 												| "condense_context"
+												| "codebase_search_result"
 										  )
 										| undefined
 									text?: string | undefined
@@ -1108,11 +1178,12 @@ type TaskCommand =
 						  )
 						| undefined
 					includeMaxTokens?: boolean | undefined
-					reasoningEffort?: ("low" | "medium" | "high") | undefined
 					diffEnabled?: boolean | undefined
 					fuzzyMatchThreshold?: number | undefined
 					modelTemperature?: (number | null) | undefined
 					rateLimitSeconds?: number | undefined
+					enableReasoningEffort?: boolean | undefined
+					reasoningEffort?: ("low" | "medium" | "high") | undefined
 					modelMaxTokens?: number | undefined
 					modelMaxThinkingTokens?: number | undefined
 					apiModelId?: string | undefined
@@ -1152,13 +1223,18 @@ type TaskCommand =
 								supportsImages?: boolean | undefined
 								supportsComputerUse?: boolean | undefined
 								supportsPromptCache: boolean
+								supportsReasoningBudget?: boolean | undefined
+								requiredReasoningBudget?: boolean | undefined
+								supportsReasoningEffort?: boolean | undefined
+								supportedParameters?:
+									| ("max_tokens" | "temperature" | "reasoning" | "include_reasoning")[]
+									| undefined
 								inputPrice?: number | undefined
 								outputPrice?: number | undefined
 								cacheWritesPrice?: number | undefined
 								cacheReadsPrice?: number | undefined
 								description?: string | undefined
 								reasoningEffort?: ("low" | "medium" | "high") | undefined
-								thinking?: boolean | undefined
 								minTokensPerCachePoint?: number | undefined
 								maxCachePoints?: number | undefined
 								cachableFields?: string[] | undefined
@@ -1176,7 +1252,6 @@ type TaskCommand =
 					openAiUseAzure?: boolean | undefined
 					azureApiVersion?: string | undefined
 					openAiStreamingEnabled?: boolean | undefined
-					enableReasoningEffort?: boolean | undefined
 					openAiHostHeader?: string | undefined
 					openAiHeaders?:
 						| {
@@ -1216,6 +1291,8 @@ type TaskCommand =
 					litellmBaseUrl?: string | undefined
 					litellmApiKey?: string | undefined
 					litellmModelId?: string | undefined
+					codeIndexOpenAiKey?: string | undefined
+					codeIndexQdrantApiKey?: string | undefined
 					currentApiConfigName?: string | undefined
 					listApiConfigMeta?:
 						| {
@@ -1275,6 +1352,33 @@ type TaskCommand =
 					autoApprovalEnabled?: boolean | undefined
 					alwaysAllowReadOnly?: boolean | undefined
 					alwaysAllowReadOnlyOutsideWorkspace?: boolean | undefined
+					codebaseIndexModels?:
+						| {
+								openai?:
+									| {
+											[x: string]: {
+												dimension: number
+											}
+									  }
+									| undefined
+								ollama?:
+									| {
+											[x: string]: {
+												dimension: number
+											}
+									  }
+									| undefined
+						  }
+						| undefined
+					codebaseIndexConfig?:
+						| {
+								codebaseIndexEnabled?: boolean | undefined
+								codebaseIndexQdrantUrl?: string | undefined
+								codebaseIndexEmbedderProvider?: ("openai" | "ollama") | undefined
+								codebaseIndexEmbedderBaseUrl?: string | undefined
+								codebaseIndexEmbedderModelId?: string | undefined
+						  }
+						| undefined
 					alwaysAllowWrite?: boolean | undefined
 					alwaysAllowWriteOutsideWorkspace?: boolean | undefined
 					writeDelayMs?: number | undefined
@@ -1286,7 +1390,7 @@ type TaskCommand =
 					alwaysAllowSubtasks?: boolean | undefined
 					alwaysAllowExecute?: boolean | undefined
 					allowedCommands?: string[] | undefined
-					allowedMaxRequests?: number | undefined
+					allowedMaxRequests?: (number | null) | undefined
 					autoCondenseContextPercent?: number | undefined
 					browserToolEnabled?: boolean | undefined
 					browserViewportSize?: string | undefined
@@ -1452,6 +1556,7 @@ type TaskEvent =
 									| "rooignore_error"
 									| "diff_error"
 									| "condense_context"
+									| "codebase_search_result"
 							  )
 							| undefined
 						text?: string | undefined
