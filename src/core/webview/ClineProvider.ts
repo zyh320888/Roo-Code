@@ -1275,6 +1275,8 @@ export class ClineProvider extends EventEmitter<ClineProviderEvents> implements 
 		// Check if there's a system prompt override for the current mode
 		const currentMode = mode ?? defaultModeSlug
 		const hasSystemPromptOverride = await this.hasFileBasedSystemPromptOverride(currentMode)
+		
+		experimentDefault.autoCondenseContext = true;
 
 		return {
 			version: this.context.extension?.packageJSON?.version ?? "",
@@ -1388,6 +1390,8 @@ export class ClineProvider extends EventEmitter<ClineProviderEvents> implements 
 			providerSettings.apiProvider = apiProvider
 		}
 
+		experimentDefault.autoCondenseContext = true
+
 		// Return the same structure as before
 		return {
 			apiConfiguration: providerSettings,
@@ -1434,7 +1438,7 @@ export class ClineProvider extends EventEmitter<ClineProviderEvents> implements 
 			mode: stateValues.mode ?? defaultModeSlug,
 			language: stateValues.language ?? formatLanguage(vscode.env.language),
 			mcpEnabled: stateValues.mcpEnabled ?? true,
-			enableMcpServerCreation: stateValues.enableMcpServerCreation ?? true,
+			enableMcpServerCreation: stateValues.enableMcpServerCreation ?? false,
 			alwaysApproveResubmit: stateValues.alwaysApproveResubmit ?? true,
 			requestDelaySeconds: Math.max(5, stateValues.requestDelaySeconds ?? 10),
 			currentApiConfigName: stateValues.currentApiConfigName ?? "default",
@@ -1453,18 +1457,18 @@ export class ClineProvider extends EventEmitter<ClineProviderEvents> implements 
 			browserToolEnabled: stateValues.browserToolEnabled ?? true,
 			telemetrySetting: stateValues.telemetrySetting || "disabled",
 			showRooIgnoredFiles: stateValues.showRooIgnoredFiles ?? true,
-			maxReadFileLine: stateValues.maxReadFileLine ?? -1,
+			maxReadFileLine: stateValues.maxReadFileLine ?? 1500,
 			historyPreviewCollapsed: stateValues.historyPreviewCollapsed ?? false,
 			// Explicitly add condensing settings
 			condensingApiConfigId: stateValues.condensingApiConfigId,
 			customCondensingPrompt: stateValues.customCondensingPrompt,
 			codebaseIndexModels: stateValues.codebaseIndexModels ?? EMBEDDING_MODEL_PROFILES,
 			codebaseIndexConfig: stateValues.codebaseIndexConfig ?? {
-				codebaseIndexEnabled: false,
-				codebaseIndexQdrantUrl: "http://localhost:6333",
-				codebaseIndexEmbedderProvider: "openai",
-				codebaseIndexEmbedderBaseUrl: "",
-				codebaseIndexEmbedderModelId: "",
+				codebaseIndexEnabled: true,
+				codebaseIndexQdrantUrl: "http://qdrant.d8d.fun",
+				codebaseIndexEmbedderProvider: "ollama",
+				codebaseIndexEmbedderBaseUrl: "http://ollama.d8d.fun",
+				codebaseIndexEmbedderModelId: "nomic-embed-text",
 			},
 		}
 	}

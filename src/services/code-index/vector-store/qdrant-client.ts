@@ -25,6 +25,7 @@ export class QdrantVectorStore implements IVectorStore {
 	constructor(workspacePath: string, url: string, vectorSize: number, apiKey?: string) {
 		this.client = new QdrantClient({
 			url: url ?? this.QDRANT_URL,
+			port: null,
 			apiKey,
 			headers: {
 				"User-Agent": "Roo-Code",
