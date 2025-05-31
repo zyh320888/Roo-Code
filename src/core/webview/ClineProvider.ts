@@ -1316,8 +1316,7 @@ export class ClineProvider
 		// Check if there's a system prompt override for the current mode
 		const currentMode = mode ?? defaultModeSlug
 		const hasSystemPromptOverride = await this.hasFileBasedSystemPromptOverride(currentMode)
-		
-		experimentDefault.autoCondenseContext = true;
+	
 
 		return {
 			version: this.context.extension?.packageJSON?.version ?? "",
@@ -1454,6 +1453,8 @@ export class ClineProvider
 				`[getState] failed to get cloud user info: ${error instanceof Error ? error.message : String(error)}`,
 			)
 		}
+
+    experimentDefault.concurrentFileReads = true;
 
 		// Return the same structure as before
 		return {
