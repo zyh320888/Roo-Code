@@ -1300,6 +1300,7 @@ export class ClineProvider
 			terminalCompressProgressBar,
 			historyPreviewCollapsed,
 			cloudUserInfo,
+			cloudIsAuthenticated,
 			organizationAllowList,
 			maxConcurrentFileReads,
 			condensingApiConfigId,
@@ -1399,6 +1400,7 @@ export class ClineProvider
 			hasSystemPromptOverride,
 			historyPreviewCollapsed: historyPreviewCollapsed ?? false,
 			cloudUserInfo,
+			cloudIsAuthenticated: cloudIsAuthenticated ?? false,
 			organizationAllowList,
 			condensingApiConfigId,
 			customCondensingPrompt,
@@ -1455,6 +1457,16 @@ export class ClineProvider
 		}
 
     experimentDefault.concurrentFileReads = true;
+
+		let cloudIsAuthenticated: boolean = false
+
+		try {
+			cloudIsAuthenticated = CloudService.instance.isAuthenticated()
+		} catch (error) {
+			console.error(
+				`[getState] failed to get cloud authentication state: ${error instanceof Error ? error.message : String(error)}`,
+			)
+		}
 
 		// Return the same structure as before
 		return {
@@ -1531,6 +1543,7 @@ export class ClineProvider
 				: 1,
 			historyPreviewCollapsed: stateValues.historyPreviewCollapsed ?? false,
 			cloudUserInfo,
+			cloudIsAuthenticated,
 			organizationAllowList,
 			// Explicitly add condensing settings
 			condensingApiConfigId: stateValues.condensingApiConfigId,
