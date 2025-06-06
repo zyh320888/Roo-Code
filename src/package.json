@@ -3,7 +3,7 @@
 	"displayName": "%extension.displayName%",
 	"description": "%extension.description%",
 	"publisher": "RooVeterinaryInc",
-	"version": "3.19.3",
+	"version": "3.19.4",
 	"icon": "assets/icons/icon.png",
 	"galleryBanner": {
 		"color": "#617A91",
@@ -348,7 +348,7 @@
 		"publish:marketplace": "vsce publish --no-dependencies && ovsx publish --no-dependencies",
 		"watch:bundle": "pnpm bundle --watch",
 		"watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-		"clean": "rimraf README.md CHANGELOG.md LICENSE dist webview-ui out mock .turbo"
+		"clean": "rimraf README.md CHANGELOG.md LICENSE dist mock .turbo"
 	},
 	"dependencies": {
 		"@anthropic-ai/bedrock-sdk": "^0.10.2",
@@ -449,7 +449,7 @@
 		"mkdirp": "^3.0.1",
 		"nock": "^14.0.4",
 		"npm-run-all2": "^8.0.1",
-		"ovsx": "0.10.2",
+		"ovsx": "0.10.4",
 		"rimraf": "^6.0.1",
 		"ts-jest": "^29.2.5",
 		"tsup": "^8.4.0",
