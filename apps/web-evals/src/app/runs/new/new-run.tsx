@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { z } from "zod"
+import { useQuery } from "@tanstack/react-query"
 import { useForm, FormProvider } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import fuzzysort from "fuzzysort"
@@ -11,10 +12,11 @@ import { X, Rocket, Check, ChevronsUpDown, SlidersHorizontal, Book, CircleCheck 
 
 import { globalSettingsSchema, providerSettingsSchema, EVALS_SETTINGS, getModelId } from "@roo-code/types"
 
-import { createRun } from "@/lib/server/runs"
+import { createRun } from "@/actions/runs"
+import { getExercises } from "@/actions/exercises"
 import {
-	createRunSchema as formSchema,
-	type CreateRun as FormValues,
+	createRunSchema,
+	type CreateRun,
 	MODEL_DEFAULT,
 	CONCURRENCY_MIN,
 	CONCURRENCY_MAX,
@@ -22,7 +24,6 @@ import {
 } from "@/lib/schemas"
 import { cn } from "@/lib/utils"
 import { useOpenRouterModels } from "@/hooks/use-open-router-models"
-import { useExercises } from "@/hooks/use-exercises"
 import {
 	Button,
 	FormControl,
@@ -65,10 +66,10 @@ export function NewRun() {
 	const modelSearchValueRef = useRef("")
 
 	const models = useOpenRouterModels()
-	const exercises = useExercises()
+	const exercises = useQuery({ queryKey: ["getExercises"], queryFn: () => getExercises() })
 
-	const form = useForm<FormValues>({
-		resolver: zodResolver(formSchema),
+	const form = useForm<CreateRun>({
+		resolver: zodResolver(createRunSchema),
 		defaultValues: {
 			model: MODEL_DEFAULT,
 			description: "",
@@ -93,7 +94,7 @@ export function NewRun() {
 	const systemPromptRef = useRef<HTMLTextAreaElement>(null)
 
 	const onSubmit = useCallback(
-		async (values: FormValues) => {
+		async (values: CreateRun) => {
 			try {
 				if (mode === "openrouter") {
 					values.settings = { ...(values.settings || {}), openRouterModelId: model }
