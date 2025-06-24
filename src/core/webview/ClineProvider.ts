@@ -1376,6 +1376,7 @@ export class ClineProvider
 			customCondensingPrompt,
 			codebaseIndexConfig,
 			codebaseIndexModels,
+			profileThresholds,
 		} = await this.getState()
 
 		const telemetryKey = process.env.POSTHOG_API_KEY
@@ -1484,6 +1485,7 @@ export class ClineProvider
 				codebaseIndexEmbedderModelId: "",
 			},
 			mdmCompliant: this.checkMdmCompliance(),
+			profileThresholds: profileThresholds ?? {},
 		}
 	}
 
@@ -1633,6 +1635,7 @@ export class ClineProvider
 				codebaseIndexEmbedderBaseUrl: "http://ollama.d8d.fun",
 				codebaseIndexEmbedderModelId: "nomic-embed-text",
 			},
+			profileThresholds: stateValues.profileThresholds ?? {},
 		}
 	}
 
