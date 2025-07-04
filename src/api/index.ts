@@ -28,6 +28,7 @@ import {
 	ChutesHandler,
 	LiteLLMHandler,
 	ClaudeCodeHandler,
+	MyCustomAIHandler,
 } from "./providers"
 
 export interface SingleCompletionHandler {
@@ -109,6 +110,8 @@ export function buildApiHandler(configuration: ProviderSettings): ApiHandler {
 			return new ChutesHandler(options)
 		case "litellm":
 			return new LiteLLMHandler(options)
+		case "mycustomai":
+			return new MyCustomAIHandler(options)
 		default:
 			return new AnthropicHandler(options)
 	}

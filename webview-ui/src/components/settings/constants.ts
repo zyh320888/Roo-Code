@@ -12,6 +12,7 @@ import {
 	xaiModels,
 	groqModels,
 	chutesModels,
+	myCustomAIModels,
 } from "@roo-code/types"
 
 export const MODELS_BY_PROVIDER: Partial<Record<ProviderName, Record<string, ModelInfo>>> = {
@@ -26,6 +27,7 @@ export const MODELS_BY_PROVIDER: Partial<Record<ProviderName, Record<string, Mod
 	xai: xaiModels,
 	groq: groqModels,
 	chutes: chutesModels,
+	mycustomai: myCustomAIModels,
 }
 
 export const PROVIDERS = [
@@ -50,4 +52,5 @@ export const PROVIDERS = [
 	{ value: "groq", label: "Groq" },
 	{ value: "chutes", label: "Chutes AI" },
 	{ value: "litellm", label: "LiteLLM" },
+	{ value: "mycustomai", label: "MyCustomAI" },
 ].sort((a, b) => a.label.localeCompare(b.label))

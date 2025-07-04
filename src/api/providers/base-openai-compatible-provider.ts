@@ -48,7 +48,11 @@ export abstract class BaseOpenAiCompatibleProvider<ModelName extends string>
 		this.defaultProviderModelId = defaultProviderModelId
 		this.providerModels = providerModels
 		this.defaultTemperature = defaultTemperature ?? 0
-
+    console.log(
+      "BaseOpenAiCompatibleProvider", 
+      providerName, baseURL, defaultProviderModelId, providerModels, defaultTemperature,
+      options
+    )
 		this.options = options
 
 		if (!this.options.apiKey) {
