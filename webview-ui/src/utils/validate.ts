@@ -102,11 +102,6 @@ function validateModelsAndKeysProvided(apiConfiguration: ProviderSettings): stri
 				return i18next.t("settings:validation.modelSelector")
 			}
 			break
-		case "mycustomai":
-			if (!apiConfiguration.myCustomAIApiKey) {
-				return i18next.t("settings:validation.apiKey")
-			}
-			break
 	}
 
 	return undefined
