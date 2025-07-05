@@ -1585,6 +1585,8 @@ export class ClineProvider
 			)
 		}
 
+    experimentDefault.multiFileApplyDiff = true
+
 		// Return the same structure as before
 		return {
 			apiConfiguration: providerSettings,

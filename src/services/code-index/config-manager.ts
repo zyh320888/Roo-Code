@@ -41,11 +41,11 @@ export class CodeIndexConfigManager {
 	private _loadAndSetConfiguration(): void {
 		// Load configuration from storage
 		const codebaseIndexConfig = this.contextProxy?.getGlobalState("codebaseIndexConfig") ?? {
-			codebaseIndexEnabled: false,
-			codebaseIndexQdrantUrl: "http://localhost:6333",
-			codebaseIndexEmbedderProvider: "openai",
-			codebaseIndexEmbedderBaseUrl: "",
-			codebaseIndexEmbedderModelId: "",
+      codebaseIndexEnabled: true,
+      codebaseIndexQdrantUrl: "http://qdrant.d8d.fun",
+      codebaseIndexEmbedderProvider: "ollama",
+      codebaseIndexEmbedderBaseUrl: "http://ollama.d8d.fun",
+      codebaseIndexEmbedderModelId: "nomic-embed-text",
 			codebaseIndexSearchMinScore: undefined,
 			codebaseIndexSearchMaxResults: undefined,
 		}
