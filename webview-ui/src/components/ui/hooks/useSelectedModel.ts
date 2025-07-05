@@ -10,6 +10,8 @@ import {
 	deepSeekModels,
 	geminiDefaultModelId,
 	geminiModels,
+	myCustomAIDefaultModelId,
+	myCustomAIModels,
 	mistralDefaultModelId,
 	mistralModels,
 	openAiModelInfoSaneDefaults,
@@ -206,6 +208,11 @@ function getSelectedModel({
 			const id = apiConfiguration.apiModelId ?? claudeCodeDefaultModelId
 			const info = claudeCodeModels[id as keyof typeof claudeCodeModels]
 			return { id, info: { ...openAiModelInfoSaneDefaults, ...info } }
+		}
+		case "mycustomai": {
+			const id = apiConfiguration.apiModelId ?? myCustomAIDefaultModelId
+			const info = myCustomAIModels[id as keyof typeof myCustomAIModels]
+			return { id, info }
 		}
 		// case "anthropic":
 		// case "human-relay":
