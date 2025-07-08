@@ -1588,7 +1588,6 @@ export class ClineProvider
 		}
 
     experimentDefault.multiFileApplyDiff = true
-    experimentDefault.powerSteering = true
 
 		// Return the same structure as before
 		return {
