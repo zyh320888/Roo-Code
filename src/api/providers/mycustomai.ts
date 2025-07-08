@@ -11,7 +11,7 @@ export class MyCustomAIHandler extends BaseOpenAiCompatibleProvider<MyCustomAIMo
     super({
       ...options,
       providerName: "MyCustomAI",
-      baseURL: options.myCustomAIBaseUrl || process.env.MY_CUSTOM_AI_BASE_URL || "https://23956.d.d8d.fun/api/v1/ai",
+      baseURL: options.myCustomAIBaseUrl || process.env.MY_CUSTOM_AI_BASE_URL || "https://www.d8d.fun/api/v1/ai",
       defaultProviderModelId: myCustomAIDefaultModelId,
       providerModels: myCustomAIModels,
       apiKey: options.myCustomAIApiKey || process.env.MY_CUSTOM_AI_API_KEY || "sk-23956d8d8d8d8d8d8d8d8d8d8d8d8d8d",

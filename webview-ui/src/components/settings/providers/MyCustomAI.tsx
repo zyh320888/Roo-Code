@@ -14,18 +14,18 @@ type MyCustomAIProps = {
 }
 
 export const MyCustomAI = ({ apiConfiguration, setApiConfigurationField }: MyCustomAIProps) => {
-  // const { t } = useAppTranslation()
+  const { t } = useAppTranslation()
 
-  // const handleInputChange = useCallback(
-  //   <K extends keyof ProviderSettings, E>(
-  //     field: K,
-  //     transform: (event: E) => ProviderSettings[K] = inputEventTransform,
-  //   ) =>
-  //     (event: E | Event) => {
-  //       setApiConfigurationField(field, transform(event as E))
-  //     },
-  //   [setApiConfigurationField],
-  // )
+  const handleInputChange = useCallback(
+    <K extends keyof ProviderSettings, E>(
+      field: K,
+      transform: (event: E) => ProviderSettings[K] = inputEventTransform,
+    ) =>
+      (event: E | Event) => {
+        setApiConfigurationField(field, transform(event as E))
+      },
+    [setApiConfigurationField],
+  )
 
   // useEffect(() => {
   //   setApiConfigurationField("myCustomAIApiKey", "dwfwfwfwefwefwfwfwfwe")
@@ -35,7 +35,7 @@ export const MyCustomAI = ({ apiConfiguration, setApiConfigurationField }: MyCus
 
   return (
     <>
-      {/* <VSCodeTextField
+      <VSCodeTextField
         value={apiConfiguration?.myCustomAIApiKey || ""}
         type="password"
         onInput={handleInputChange("myCustomAIApiKey")}
@@ -43,22 +43,22 @@ export const MyCustomAI = ({ apiConfiguration, setApiConfigurationField }: MyCus
         className="w-full">
         <label className="block font-medium mb-1">{t("settings:providers.apiKey")}</label>
       </VSCodeTextField>
-      <VSCodeTextField
+      {/* <VSCodeTextField
         value={apiConfiguration?.myCustomAIBaseUrl || ""}
         type="url"
         onInput={handleInputChange("myCustomAIBaseUrl")}
         placeholder="https://api.mycustom.ai/v1"
         className="w-full mt-2">
         <label className="block font-medium mb-1">{t("settings:providers.baseUrl")}</label>
-      </VSCodeTextField>
+      </VSCodeTextField> */}
       <div className="text-sm text-vscode-descriptionForeground -mt-2">
         {t("settings:providers.apiKeyStorageNotice")}
       </div>
       {!apiConfiguration?.myCustomAIApiKey && (
-        <VSCodeButtonLink href="https://mycustom.ai/api-keys" appearance="secondary">
+        <VSCodeButtonLink href="https://www.d8d.fun/api-keys" appearance="secondary">
           {t("settings:providers.getApiKey")}
         </VSCodeButtonLink>
-      )} */}
+      )}
     </>
   )
 }
