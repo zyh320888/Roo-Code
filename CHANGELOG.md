@@ -1,5 +1,25 @@
 # Roo Code Changelog
 
+## [3.23.4] - 2025-07-09
+
+- Update chat area icons for better discoverability & consistency
+- Fix a bug that allowed `list_files` to return directory results that should be excluded by .gitignore
+- Add an overflow header menu to make the UI a little tidier (thanks @dlab-anton)
+- Fix a bug the issue where null custom modes configuration files cause a 'Cannot read properties of null' error (thanks @daniel-lxs!)
+- Replace native title attributes with StandardTooltip component for consistency (thanks @daniel-lxs!)
+
+## [3.23.3] - 2025-07-09
+
+- Remove erroneous line from announcement modal
+
+## [3.23.2] - 2025-07-09
+
+- Fix bug where auto-approval was intermittently failing
+
+## [3.23.1] - 2025-07-09
+
+- Always show the code indexing dot under the chat text area
+
 ## [3.23.0] - 2025-07-08
 
 - Move codebase indexing out of experimental (thanks @daniel-lxs and @MuriloFP!)
