@@ -59,7 +59,7 @@ export class CodeIndexOllamaEmbedder implements IEmbedder {
 
 			// Add timeout to prevent indefinite hanging
 			const controller = new AbortController()
-			const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+			const timeoutId = setTimeout(() => controller.abort(), 30000) // 30 second timeout
 
 			const response = await fetch(url, {
 				method: "POST",
@@ -131,7 +131,7 @@ export class CodeIndexOllamaEmbedder implements IEmbedder {
 
 				// Add timeout to prevent indefinite hanging
 				const controller = new AbortController()
-				const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
+				const timeoutId = setTimeout(() => controller.abort(), 30000) // 30 second timeout
 
 				const modelsResponse = await fetch(modelsUrl, {
 					method: "GET",
@@ -188,7 +188,7 @@ export class CodeIndexOllamaEmbedder implements IEmbedder {
 
 				// Add timeout for test request too
 				const testController = new AbortController()
-				const testTimeoutId = setTimeout(() => testController.abort(), 5000)
+				const testTimeoutId = setTimeout(() => testController.abort(), 30000)
 
 				const testResponse = await fetch(testUrl, {
 					method: "POST",
