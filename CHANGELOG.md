@@ -1,5 +1,15 @@
 # Roo Code Changelog
 
+## [3.23.6] - 2025-07-10
+
+- Grok 4
+
+## [3.23.5] - 2025-07-09
+
+- Fix: use decodeURIComponent in openFile (thanks @vivekfyi!)
+- Fix(embeddings): Translate error messages before sending to UI (thanks @daniel-lxs!)
+- Make account tab visible
+
 ## [3.23.4] - 2025-07-09
 
 - Update chat area icons for better discoverability & consistency
