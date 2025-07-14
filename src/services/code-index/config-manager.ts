@@ -42,9 +42,9 @@ export class CodeIndexConfigManager {
 		// Load configuration from storage
 		const codebaseIndexConfig = this.contextProxy?.getGlobalState("codebaseIndexConfig") ?? {
       codebaseIndexEnabled: true,
-      codebaseIndexQdrantUrl: "http://qdrant.d8d.fun",
+      codebaseIndexQdrantUrl: "http://localhost:6333",
       codebaseIndexEmbedderProvider: "ollama",
-      codebaseIndexEmbedderBaseUrl: "http://ollama.d8d.fun",
+      codebaseIndexEmbedderBaseUrl: "http://localhost:11434",
       codebaseIndexEmbedderModelId: "nomic-embed-text",
 			codebaseIndexSearchMinScore: undefined,
 			codebaseIndexSearchMaxResults: undefined,

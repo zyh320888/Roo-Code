@@ -215,9 +215,9 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		profileThresholds: {},
 		codebaseIndexConfig: {
       codebaseIndexEnabled: true,
-      codebaseIndexQdrantUrl: "http://qdrant.d8d.fun",
+      codebaseIndexQdrantUrl: "http://localhost:6333",
       codebaseIndexEmbedderProvider: "ollama",
-      codebaseIndexEmbedderBaseUrl: "http://ollama.d8d.fun",
+      codebaseIndexEmbedderBaseUrl: "http://localhost:11434",
       codebaseIndexEmbedderModelId: "nomic-embed-text",
 			codebaseIndexSearchMaxResults: undefined,
 			codebaseIndexSearchMinScore: undefined,
