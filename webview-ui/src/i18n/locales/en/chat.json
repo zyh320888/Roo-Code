@@ -131,6 +131,7 @@
 	"separator": "Separator",
 	"edit": "Edit...",
 	"forNextMode": "for next mode",
+	"forPreviousMode": "for previous mode",
 	"apiRequest": {
 		"title": "API Request",
 		"failed": "API Request Failed",
@@ -243,7 +244,10 @@
 	"autoApprove": {
 		"title": "Auto-approve:",
 		"none": "None",
-		"description": "Auto-approve allows Roo Code to perform actions without asking for permission. Only enable for actions you fully trust. More detailed configuration available in <settingsLink>Settings</settingsLink>."
+		"description": "Auto-approve allows Roo Code to perform actions without asking for permission. Only enable for actions you fully trust. More detailed configuration available in <settingsLink>Settings</settingsLink>.",
+		"selectOptionsFirst": "Select at least one option below to enable auto-approval",
+		"toggleAriaLabel": "Toggle auto-approval",
+		"disabledAriaLabel": "Auto-approval disabled - select options first"
 	},
 	"announcement": {
 		"title": "🎉 Roo Code {{version}} Released",

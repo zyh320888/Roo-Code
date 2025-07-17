@@ -38,6 +38,8 @@ import { useSelectedModel } from "@src/components/ui/hooks/useSelectedModel"
 import RooHero from "@src/components/welcome/RooHero"
 import RooTips from "@src/components/welcome/RooTips"
 import { StandardTooltip } from "@src/components/ui"
+import { useAutoApprovalState } from "@src/hooks/useAutoApprovalState"
+import { useAutoApprovalToggles } from "@src/hooks/useAutoApprovalToggles"
 
 import TelemetryBanner from "../common/TelemetryBanner"
 import VersionIndicator from "../common/VersionIndicator"
@@ -79,7 +81,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 	})
 	const { t } = useAppTranslation()
 	const { t: tSettings } = useTranslation("settings")
-	const modeShortcutText = `${isMac ? "⌘" : "Ctrl"} + . ${t("chat:forNextMode")}`
+	const modeShortcutText = `${isMac ? "⌘" : "Ctrl"} + . ${t("chat:forNextMode")}, ${isMac ? "⌘" : "Ctrl"} + Shift + . ${t("chat:forPreviousMode")}`
 	const {
 		clineMessages: messages,
 		currentTaskItem,
@@ -959,9 +961,20 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		[deniedCommands],
 	)
 
+	// Create toggles object for useAutoApprovalState hook
+	const autoApprovalToggles = useAutoApprovalToggles()
+
+	const { hasEnabledOptions } = useAutoApprovalState(autoApprovalToggles, autoApprovalEnabled)
+
 	const isAutoApproved = useCallback(
 		(message: ClineMessage | undefined) => {
+			// First check if auto-approval is enabled AND we have at least one permission
 			if (!autoApprovalEnabled || !message || message.type !== "ask") {
+				return false
+			}
+
+			// Use the hook's result instead of duplicating the logic
+			if (!hasEnabledOptions) {
 				return false
 			}
 
@@ -1038,6 +1051,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		},
 		[
 			autoApprovalEnabled,
+			hasEnabledOptions,
 			alwaysAllowBrowser,
 			alwaysAllowReadOnly,
 			alwaysAllowReadOnlyOutsideWorkspace,
@@ -1555,16 +1569,33 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		switchToMode(allModes[nextModeIndex].slug)
 	}, [mode, customModes, switchToMode])
 
+	// Function to handle switching to previous mode
+	const switchToPreviousMode = useCallback(() => {
+		const allModes = getAllModes(customModes)
+		const currentModeIndex = allModes.findIndex((m) => m.slug === mode)
+		const previousModeIndex = (currentModeIndex - 1 + allModes.length) % allModes.length
+		// Update local state and notify extension to sync mode change
+		switchToMode(allModes[previousModeIndex].slug)
+	}, [mode, customModes, switchToMode])
+
 	// Add keyboard event handler
 	const handleKeyDown = useCallback(
 		(event: KeyboardEvent) => {
-			// Check for Command + . (period)
-			if ((event.metaKey || event.ctrlKey) && event.key === ".") {
+			// Check for Command/Ctrl + Period (with or without Shift)
+			// Using event.code for better cross-platform compatibility
+			if ((event.metaKey || event.ctrlKey) && event.code === "Period") {
 				event.preventDefault() // Prevent default browser behavior
-				switchToNextMode()
+
+				if (event.shiftKey) {
+					// Shift + Period = Previous mode
+					switchToPreviousMode()
+				} else {
+					// Just Period = Next mode
+					switchToNextMode()
+				}
 			}
 		},
-		[switchToNextMode],
+		[switchToNextMode, switchToPreviousMode],
 	)
 
 	// Add event listener
