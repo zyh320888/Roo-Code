@@ -1697,9 +1697,9 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						{/* <RooHero /> */}
 						{telemetrySetting === "unset" && <TelemetryBanner />}
 
-						<div className="mb-2.5">
+						{/* <div className="mb-2.5">
 							{cloudIsAuthenticated || taskHistory.length < 4 ? <RooTips /> : <RooCloudCTA />}
-						</div>
+						</div> */}
 						{/* Show the task history preview if expanded and tasks exist */}
 						{taskHistory.length > 0 && isExpanded && <HistoryPreview />}
 					</div>
