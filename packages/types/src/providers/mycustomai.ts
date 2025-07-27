@@ -10,8 +10,8 @@ export const myCustomAIModels = {
     contextWindow: 256_000,
     supportsImages: true,
     supportsPromptCache: true,
-    inputPrice: 1.2,
-    outputPrice: 12,
+    inputPrice: 6,
+    outputPrice: 35,
   },
 } as const satisfies Record<string, ModelInfo>
 
