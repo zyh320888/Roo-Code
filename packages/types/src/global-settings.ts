@@ -20,7 +20,7 @@ import { languagesSchema } from "./vscode.js"
  * This delay is particularly important for Go and other languages where tools like goimports
  * need time to automatically clean up unused imports.
  */
-export const DEFAULT_WRITE_DELAY_MS = 1000
+export const DEFAULT_WRITE_DELAY_MS = 0
 
 /**
  * Default terminal output character limit constant.
