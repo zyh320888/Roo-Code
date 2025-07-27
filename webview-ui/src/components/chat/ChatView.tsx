@@ -1631,7 +1631,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 
 	return (
 		<div className={isHidden ? "hidden" : "fixed top-0 left-0 right-0 bottom-0 flex flex-col overflow-hidden"}>
-			{(showAnnouncement || showAnnouncementModal) && (
+			{/* {(showAnnouncement || showAnnouncementModal) && (
 				<Announcement
 					hideAnnouncement={() => {
 						if (showAnnouncementModal) {
@@ -1642,7 +1642,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						}
 					}}
 				/>
-			)}
+			)} */}
 			{task ? (
 				<>
 					<TaskHeader
