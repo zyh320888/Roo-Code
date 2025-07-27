@@ -44,7 +44,7 @@
 	},
 	"save": {
 		"title": "Lưu",
-		"tooltip": "Lưu các thay đổi tệp"
+		"tooltip": "Lưu các thay đổi tin nhắn"
 	},
 	"reject": {
 		"title": "Từ chối",
@@ -116,7 +116,9 @@
 		"title": "Chế độ",
 		"marketplace": "Chợ Chế độ",
 		"settings": "Cài đặt Chế độ",
-		"description": "Các nhân cách chuyên biệt điều chỉnh hành vi của Roo."
+		"description": "Các nhân cách chuyên biệt điều chỉnh hành vi của Roo.",
+		"searchPlaceholder": "Tìm kiếm chế độ...",
+		"noResults": "Không tìm thấy kết quả nào"
 	},
 	"errorReadingFile": "Lỗi khi đọc tệp:",
 	"noValidImages": "Không có hình ảnh hợp lệ nào được xử lý",
@@ -192,6 +194,22 @@
 		"didViewDefinitionsOutsideWorkspace": "Roo đã xem tên định nghĩa mã nguồn được sử dụng trong thư mục này (ngoài không gian làm việc):"
 	},
 	"commandOutput": "Kết quả lệnh",
+	"commandExecution": {
+		"running": "Đang chạy",
+		"pid": "PID: {{pid}}",
+		"exited": "Đã thoát ({{exitCode}})",
+		"manageCommands": "Quản lý quyền lệnh",
+		"commandManagementDescription": "Quản lý quyền lệnh: Nhấp vào ✓ để cho phép tự động thực thi, ✗ để từ chối thực thi. Các mẫu có thể được bật/tắt hoặc xóa khỏi danh sách. <settingsLink>Xem tất cả cài đặt</settingsLink>",
+		"addToAllowed": "Thêm vào danh sách cho phép",
+		"removeFromAllowed": "Xóa khỏi danh sách cho phép",
+		"addToDenied": "Thêm vào danh sách từ chối",
+		"removeFromDenied": "Xóa khỏi danh sách từ chối",
+		"abortCommand": "Hủy bỏ thực thi lệnh",
+		"expandOutput": "Mở rộng kết quả",
+		"collapseOutput": "Thu gọn kết quả",
+		"expandManagement": "Mở rộng phần quản lý lệnh",
+		"collapseManagement": "Thu gọn phần quản lý lệnh"
+	},
 	"response": "Phản hồi",
 	"arguments": "Tham số",
 	"mcp": {
@@ -247,9 +265,9 @@
 		"title": "🎉 Roo Code {{version}} Đã phát hành",
 		"description": "Roo Code {{version}} mang đến các tính năng mạnh mẽ mới và cải tiến đáng kể để nâng cao quy trình phát triển của bạn.",
 		"whatsNew": "Có gì mới",
-		"feature1": "<bold>Lập chỉ mục Codebase Tốt nghiệp từ Thử nghiệm</bold>: Lập chỉ mục codebase đầy đủ hiện đã ổn định và sẵn sàng cho sử dụng sản xuất với tìm kiếm cải tiến và hiểu biết ngữ cảnh.",
-		"feature2": "<bold>Tính năng Danh sách Todo Mới</bold>: Giữ nhiệm vụ của bạn đúng hướng với quản lý todo tích hợp giúp bạn duy trì tổ chức và tập trung vào mục tiêu phát triển.",
-		"feature3": "<bold>Cải thiện Chuyển đổi từ Architect sang Code</bold>: Chuyển đổi mượt mà từ lập kế hoạch trong chế độ Architect sang triển khai trong chế độ Code.",
+		"feature1": "<bold>Nhà cung cấp Hugging Face</bold>: Truy cập hàng tấn mô hình mã nguồn mở tuyệt vời trực tiếp thông qua nhà cung cấp Hugging Face mới với tích hợp liền mạch và lựa chọn mô hình.",
+		"feature2": "<bold>Điều khiển Lệnh Inline</bold>: Các điều khiển tự động phê duyệt và từ chối mới cho việc thực thi lệnh cung cấp cho bạn quyền kiểm soát chính xác các hoạt động terminal với quyền có thể tùy chỉnh.",
+		"feature3": "<bold>Hỗ trợ Quy tắc AGENTS.md</bold>: Thêm hỗ trợ cho tệp AGENTS.md tiêu chuẩn cộng đồng trong thư mục gốc của dự án.",
 		"hideButton": "Ẩn thông báo",
 		"detailsDiscussLinks": "Nhận thêm chi tiết và thảo luận tại <discordLink>Discord</discordLink> và <redditLink>Reddit</redditLink> 🚀"
 	},
@@ -322,5 +340,16 @@
 	},
 	"versionIndicator": {
 		"ariaLabel": "Phiên bản {{version}} - Nhấp để xem ghi chú phát hành"
+	},
+	"rooCloudCTA": {
+		"title": "Roo Code Cloud sắp ra mắt!",
+		"description": "Chạy các agent từ xa trên cloud, truy cập các tác vụ của bạn từ mọi nơi, cộng tác với người khác và nhiều hơn nữa.",
+		"joinWaitlist": "Tham gia danh sách chờ để được truy cập sớm."
+	},
+	"editMessage": {
+		"placeholder": "Chỉnh sửa tin nhắn của bạn..."
+	},
+	"command": {
+		"triggerDescription": "Kích hoạt lệnh {{name}}"
 	}
 }
