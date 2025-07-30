@@ -1705,6 +1705,7 @@ export class ClineProvider
 		}
 
     experimentDefault.multiFileApplyDiff = true
+    experimentDefault.preventFocusDisruption = true
 
 		// Return the same structure as before
 		return {
