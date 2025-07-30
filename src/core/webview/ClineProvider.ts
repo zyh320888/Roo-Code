@@ -1777,7 +1777,7 @@ export class ClineProvider
 			maxOpenTabsContext: stateValues.maxOpenTabsContext ?? 20,
 			maxWorkspaceFiles: stateValues.maxWorkspaceFiles ?? 200,
 			openRouterUseMiddleOutTransform: stateValues.openRouterUseMiddleOutTransform ?? true,
-			browserToolEnabled: stateValues.browserToolEnabled ?? true,
+			browserToolEnabled: stateValues.browserToolEnabled ?? false,
 			telemetrySetting: stateValues.telemetrySetting || "disabled",
 			showRooIgnoredFiles: stateValues.showRooIgnoredFiles ?? true,
 			maxReadFileLine: stateValues.maxReadFileLine ?? 1500,
