@@ -434,9 +434,12 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 	}, [messages.length])
 
 	useEffect(() => {
+		// Reset UI states
 		setExpandedRows({})
 		everVisibleMessagesTsRef.current.clear() // Clear for new task
 		setCurrentFollowUpTs(null) // Clear follow-up answered state for new task
+		setIsCondensing(false) // Reset condensing state when switching tasks
+		// Note: sendingDisabled is not reset here as it's managed by message effects
 
 		// Clear any pending auto-approval timeout from previous task
 		if (autoApproveTimeoutRef.current) {
@@ -897,11 +900,9 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 	useMount(() => textAreaRef.current?.focus())
 
 	const visibleMessages = useMemo(() => {
-		const currentMessageCount = modifiedMessages.length
-		const startIndex = Math.max(0, currentMessageCount - 500)
-		const recentMessages = modifiedMessages.slice(startIndex)
-
-		const newVisibleMessages = recentMessages.filter((message: ClineMessage) => {
+		// Remove the 500-message limit to prevent array index shifting
+		// Virtuoso is designed to efficiently handle large lists through virtualization
+		const newVisibleMessages = modifiedMessages.filter((message: ClineMessage) => {
 			if (everVisibleMessagesTsRef.current.has(message.ts)) {
 				const alwaysHiddenOnceProcessedAsk: ClineAsk[] = [
 					"api_req_failed",
@@ -1334,23 +1335,10 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 
 	const scrollToBottomSmooth = useMemo(
 		() =>
-			debounce(
-				() => {
-					const lastIndex = groupedMessages.length - 1
-					if (lastIndex >= 0) {
-						virtuosoRef.current?.scrollToIndex({
-							index: lastIndex,
-							behavior: "smooth",
-							align: "end",
-						})
-					}
-				},
-				10,
-				{
-					immediate: true,
-				},
-			),
-		[groupedMessages.length],
+			debounce(() => virtuosoRef.current?.scrollTo({ top: Number.MAX_SAFE_INTEGER, behavior: "smooth" }), 10, {
+				immediate: true,
+			}),
+		[],
 	)
 
 	useEffect(() => {
@@ -1362,15 +1350,11 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 	}, [scrollToBottomSmooth])
 
 	const scrollToBottomAuto = useCallback(() => {
-		const lastIndex = groupedMessages.length - 1
-		if (lastIndex >= 0) {
-			virtuosoRef.current?.scrollToIndex({
-				index: lastIndex,
-				behavior: "auto", // Instant causes crash.
-				align: "end",
-			})
-		}
-	}, [groupedMessages.length])
+		virtuosoRef.current?.scrollTo({
+			top: Number.MAX_SAFE_INTEGER,
+			behavior: "auto", // Instant causes crash.
+		})
+	}, [])
 
 	const handleSetExpandedRow = useCallback(
 		(ts: number, expand?: boolean) => {
