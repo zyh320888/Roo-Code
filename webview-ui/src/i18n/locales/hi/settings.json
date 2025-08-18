@@ -48,6 +48,7 @@
 		"geminiApiKeyLabel": "API कुंजी:",
 		"geminiApiKeyPlaceholder": "अपना जेमिनी एपीआई कुंजी दर्ज करें",
 		"mistralProvider": "Mistral",
+		"myCustomAIProvider": "मेरी कस्टम एआई",
 		"mistralApiKeyLabel": "API कुंजी:",
 		"mistralApiKeyPlaceholder": "अपनी मिस्ट्रल एपीआई कुंजी दर्ज करें",
 		"openaiCompatibleProvider": "OpenAI संगत",

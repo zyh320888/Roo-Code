@@ -48,6 +48,7 @@
 		"geminiApiKeyLabel": "API-sleutel:",
 		"geminiApiKeyPlaceholder": "Voer uw Gemini API-sleutel in",
 		"mistralProvider": "Mistral",
+		"myCustomAIProvider": "Mijn Aangepaste AI",
 		"mistralApiKeyLabel": "API-sleutel:",
 		"mistralApiKeyPlaceholder": "Voer uw Mistral API-sleutel in",
 		"openaiCompatibleProvider": "OpenAI-compatibel",

@@ -48,6 +48,7 @@
 		"geminiApiKeyLabel": "API Anahtarı:",
 		"geminiApiKeyPlaceholder": "Gemini API anahtarınızı girin",
 		"mistralProvider": "Mistral",
+		"myCustomAIProvider": "Özel Yapay Zekam",
 		"mistralApiKeyLabel": "API Anahtarı:",
 		"mistralApiKeyPlaceholder": "Mistral API anahtarınızı girin",
 		"openaiCompatibleProvider": "OpenAI Uyumlu",

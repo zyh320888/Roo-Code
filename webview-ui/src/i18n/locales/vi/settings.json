@@ -48,6 +48,7 @@
 		"geminiApiKeyLabel": "Khóa API:",
 		"geminiApiKeyPlaceholder": "Nhập khóa API Gemini của bạn",
 		"mistralProvider": "Mistral",
+		"myCustomAIProvider": "AI Tùy Chỉnh Của Tôi",
 		"mistralApiKeyLabel": "Khóa API:",
 		"mistralApiKeyPlaceholder": "Nhập khóa API Mistral của bạn",
 		"openaiCompatibleProvider": "Tương thích OpenAI",

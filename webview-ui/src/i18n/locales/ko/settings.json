@@ -48,6 +48,7 @@
 		"geminiApiKeyLabel": "API 키:",
 		"geminiApiKeyPlaceholder": "Gemini API 키를 입력하세요",
 		"mistralProvider": "Mistral",
+		"myCustomAIProvider": "내 맞춤 AI",
 		"mistralApiKeyLabel": "API 키:",
 		"mistralApiKeyPlaceholder": "Mistral API 키를 입력하세요",
 		"openaiCompatibleProvider": "OpenAI 호환",

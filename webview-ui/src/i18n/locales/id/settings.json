@@ -48,6 +48,7 @@
 		"geminiApiKeyLabel": "API Key:",
 		"geminiApiKeyPlaceholder": "Masukkan kunci API Gemini Anda",
 		"mistralProvider": "Mistral",
+		"myCustomAIProvider": "AI Kustom Saya",
 		"mistralApiKeyLabel": "Kunci API:",
 		"mistralApiKeyPlaceholder": "Masukkan kunci API Mistral Anda",
 		"openaiCompatibleProvider": "OpenAI Compatible",

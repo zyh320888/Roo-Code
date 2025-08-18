@@ -48,6 +48,7 @@
 		"geminiApiKeyLabel": "Clau API:",
 		"geminiApiKeyPlaceholder": "Introduïu la vostra clau d'API de Gemini",
 		"mistralProvider": "Mistral",
+		"myCustomAIProvider": "La Meva IA Personalitzada",
 		"mistralApiKeyLabel": "Clau de l'API:",
 		"mistralApiKeyPlaceholder": "Introduïu la vostra clau de l'API de Mistral",
 		"openaiCompatibleProvider": "Compatible amb OpenAI",

@@ -48,6 +48,7 @@
 		"geminiApiKeyLabel": "Ключ API:",
 		"geminiApiKeyPlaceholder": "Введите свой API-ключ Gemini",
 		"mistralProvider": "Mistral",
+		"myCustomAIProvider": "Мой Пользовательский ИИ",
 		"mistralApiKeyLabel": "Ключ API:",
 		"mistralApiKeyPlaceholder": "Введите свой API-ключ Mistral",
 		"openaiCompatibleProvider": "OpenAI-совместимый",
