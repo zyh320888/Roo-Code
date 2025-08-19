@@ -2057,9 +2057,9 @@ export class ClineProvider
 				codebaseIndexQdrantUrl:
 					stateValues.codebaseIndexConfig?.codebaseIndexQdrantUrl ?? "http://localhost:6333",
 				codebaseIndexEmbedderProvider:
-					stateValues.codebaseIndexConfig?.codebaseIndexEmbedderProvider ?? "ollama",
+					stateValues.codebaseIndexConfig?.codebaseIndexEmbedderProvider ?? "mycustomai",
 				codebaseIndexEmbedderBaseUrl: stateValues.codebaseIndexConfig?.codebaseIndexEmbedderBaseUrl ?? "http://localhost:11434",
-				codebaseIndexEmbedderModelId: stateValues.codebaseIndexConfig?.codebaseIndexEmbedderModelId ?? "nomic-embed-text",
+				codebaseIndexEmbedderModelId: stateValues.codebaseIndexConfig?.codebaseIndexEmbedderModelId ?? "d8d-embedding-text-240715",
 				codebaseIndexEmbedderModelDimension:
 					stateValues.codebaseIndexConfig?.codebaseIndexEmbedderModelDimension,
 				codebaseIndexOpenAiCompatibleBaseUrl:

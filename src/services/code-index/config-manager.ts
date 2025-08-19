@@ -46,9 +46,9 @@ export class CodeIndexConfigManager {
 		const codebaseIndexConfig = this.contextProxy?.getGlobalState("codebaseIndexConfig") ?? {
       codebaseIndexEnabled: true,
       codebaseIndexQdrantUrl: "http://localhost:6333",
-      codebaseIndexEmbedderProvider: "ollama",
+      codebaseIndexEmbedderProvider: "mycustomai",
       codebaseIndexEmbedderBaseUrl: "http://localhost:11434",
-      codebaseIndexEmbedderModelId: "nomic-embed-text",
+      codebaseIndexEmbedderModelId: "d8d-embedding-text-240715",
 			codebaseIndexSearchMinScore: undefined,
 			codebaseIndexSearchMaxResults: undefined,
 		}
@@ -70,7 +70,7 @@ export class CodeIndexConfigManager {
 		const openAiCompatibleApiKey = this.contextProxy?.getSecret("codebaseIndexOpenAiCompatibleApiKey") ?? ""
 		const geminiApiKey = this.contextProxy?.getSecret("codebaseIndexGeminiApiKey") ?? ""
 		const mistralApiKey = this.contextProxy?.getSecret("codebaseIndexMistralApiKey") ?? ""
-		const myCustomAIApiKey = this.contextProxy?.getSecret("codebaseIndexMyCustomAIApiKey") ?? ""
+		const myCustomAIApiKey = this.contextProxy?.getSecret("codebaseIndexMyCustomAIApiKey") ?? "sk-1234567890"
 
 		// Update instance variables with configuration
 		this.codebaseIndexEnabled = codebaseIndexEnabled ?? true
@@ -232,7 +232,8 @@ export class CodeIndexConfigManager {
 		} else if (this.embedderProvider === "mycustomai") {
 			const apiKey = this.myCustomAIOptions?.apiKey
 			const qdrantUrl = this.qdrantUrl
-			const isConfigured = !!(apiKey && qdrantUrl)
+			const isConfigured = !!(apiKey && qdrantUrl) 
+			// const isConfigured = !!qdrantUrl
 			return isConfigured
 		}
 		return false // Should not happen if embedderProvider is always set correctly

@@ -25,9 +25,6 @@ export class MyCustomAIEmbedder implements IEmbedder {
 	 * @param modelId The model ID to use (defaults to text-embedding-3-small)
 	 */
 	constructor(apiKey: string, modelId?: string) {
-		if (!apiKey) {
-			throw new Error(t("embeddings:validation.apiKeyRequired"))
-		}
 
 		// Use provided model or default
 		this.modelId = modelId || MyCustomAIEmbedder.DEFAULT_MODEL
