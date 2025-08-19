@@ -14,8 +14,8 @@ import { TelemetryService } from "@roo-code/telemetry"
  */
 export class MyCustomAIEmbedder implements IEmbedder {
 	private readonly openAICompatibleEmbedder: OpenAICompatibleEmbedder
-	// private static readonly MYCUSTOMAI_BASE_URL = "https://www.d8d.fun/api/v1/ai"
-	private static readonly MYCUSTOMAI_BASE_URL = "https://23956.d.d8d.fun/api/v1/ai"
+	private static readonly MYCUSTOMAI_BASE_URL = "https://www.d8d.fun/api/v1/ai"
+	// private static readonly MYCUSTOMAI_BASE_URL = "https://23956.d.d8d.fun/api/v1/ai"
 	private static readonly DEFAULT_MODEL = "d8d-embedding-text-240715"
 	private readonly modelId: string
 
