@@ -136,13 +136,13 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 					</div>
 				)
 			case ContextMenuOptionType.Problems:
-				return <span>Problems</span>
+				return <span>问题</span>
 			case ContextMenuOptionType.Terminal:
-				return <span>Terminal</span>
+				return <span>终端</span>
 			case ContextMenuOptionType.URL:
-				return <span>Paste URL to fetch contents</span>
+				return <span>粘贴 URL 以获取内容</span>
 			case ContextMenuOptionType.NoResults:
-				return <span>No results found</span>
+				return <span>未找到结果</span>
 			case ContextMenuOptionType.Git:
 				if (option.value) {
 					return (
