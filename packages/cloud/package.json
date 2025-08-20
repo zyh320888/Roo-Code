@@ -22,27 +22,13 @@
     "roo-code",
     "ai"
   ],
-  "files": [
-    "dist"
-  ],
+  "type": "module",
+  "exports": "./src/index.ts",
   "dependencies": {
     "@roo-code/types": "^1.52.0",
     "ioredis": "^5.6.1",
     "p-wait-for": "^5.0.2",
     "socket.io-client": "^4.8.1",
     "zod": "^3.25.76"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    }
   }
 }
