@@ -374,8 +374,8 @@ importers:
   packages/cloud:
     dependencies:
       '@roo-code/types':
-        specifier: ^1.52.0
-        version: 1.52.0
+        specifier: workspace:^
+        version: link:../types
       ioredis:
         specifier: ^5.6.1
         version: 5.6.1
@@ -3160,9 +3160,6 @@ packages:
     resolution: {integrity: sha512-bwspbWB04XJpeElvsp+DCylKfF4trJDa2Y9Go8O6A7YLX2LIKGcNK/CYImJN6ZP4DcuOHB4Utl3iCbnR62DudA==}
     cpu: [x64]
     os: [win32]
-
-  '@roo-code/types@1.52.0':
-    resolution: {integrity: sha512-jPCVZ2j4Y0MUiHvAJbXduR3yFGb5A3KDvIThi8cKBAUg8zb7jhIYKTvJ5vub1MGZkpK11K0JG6ex4RL19FjobA==}
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
@@ -12381,10 +12378,6 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.40.2':
     optional: true
-
-  '@roo-code/types@1.52.0':
-    dependencies:
-      zod: 3.25.76
 
   '@sec-ant/readable-stream@0.4.1': {}
 
