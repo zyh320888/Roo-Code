@@ -109,6 +109,7 @@ export enum ContextMenuOptionType {
 	Mode = "mode", // Add mode type
 	Command = "command", // Add command type
 	SectionHeader = "sectionHeader", // Add section header type
+	AddCommand = "addCommand", // Add command type for @ menu
 }
 
 export interface ContextMenuQueryItem {
@@ -250,13 +251,14 @@ export function getContextMenuOptions(
 		}
 
 		return [
+			{ type: ContextMenuOptionType.AddCommand, label: "添加命令", description: "切换到命令模式" },		
 			{ type: ContextMenuOptionType.Problems },
 			{ type: ContextMenuOptionType.Terminal },
 			{ type: ContextMenuOptionType.URL },
 			{ type: ContextMenuOptionType.Folder },
 			{ type: ContextMenuOptionType.File },
 			{ type: ContextMenuOptionType.Git },
-		]
+    ]
 	}
 
 	const lowerQuery = query.toLowerCase()

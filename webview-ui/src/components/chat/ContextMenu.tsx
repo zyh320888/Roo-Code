@@ -162,8 +162,25 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 						</div>
 					)
 				} else {
-					return <span>Git Commits</span>
+					// return <span>Git Commits</span>
+					return <span>Git 提交</span>
 				}
+			case ContextMenuOptionType.AddCommand:
+				return (
+					<div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+						<span>{option.label}</span>
+						{option.description && (
+							<span
+								style={{
+									opacity: 0.5,
+									fontSize: "0.9em",
+									lineHeight: "1.2",
+								}}>
+								{option.description}
+							</span>
+						)}
+					</div>
+				)
 			case ContextMenuOptionType.File:
 			case ContextMenuOptionType.OpenedFile:
 			case ContextMenuOptionType.Folder:
@@ -202,7 +219,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 						</div>
 					)
 				} else {
-					return <span>Add {option.type === ContextMenuOptionType.File ? "File" : "Folder"}</span>
+					return <span>添加 {option.type === ContextMenuOptionType.File ? "文件" : "文件夹"}</span>
 				}
 		}
 	}
@@ -229,6 +246,8 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 				return "git-commit"
 			case ContextMenuOptionType.NoResults:
 				return "info"
+			case ContextMenuOptionType.AddCommand:
+				return "add"
 			default:
 				return "file"
 		}

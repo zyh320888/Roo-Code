@@ -305,14 +305,25 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				if (type === ContextMenuOptionType.Command && value) {
 					// Handle command selection.
 					setSelectedMenuIndex(-1)
-					setInputValue("")
 					setShowContextMenu(false)
+
+          
+          let newInputValue = inputValue
+          
+          // 如果inputValue最后两个字符是@/，去掉
+          if(inputValue.endsWith("@/")){
+            newInputValue = inputValue.slice(0, -2)
+          }
+          // 如果inputValue最后一个字符是@，去掉
+          else if (inputValue.endsWith("@")) {
+            newInputValue = inputValue.slice(0, -1)
+          }
 
 					// Insert the command mention into the textarea
 					const commandMention = `/${value}`
-					setInputValue(commandMention + " ")
-					setCursorPosition(commandMention.length + 1)
-					setIntendedCursorPosition(commandMention.length + 1)
+					setInputValue(newInputValue + commandMention + " ")
+					setCursorPosition(newInputValue.length + commandMention.length + 1)
+					setIntendedCursorPosition(newInputValue.length + commandMention.length + 1)
 
 					// Focus the textarea
 					setTimeout(() => {
@@ -320,6 +331,17 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 							textAreaRef.current.focus()
 						}
 					}, 0)
+					return
+				}
+
+				if (type === ContextMenuOptionType.AddCommand) {
+					// Handle "Add Command" - trigger slash command menu without clearing input
+					setSearchQuery("/")
+					setSelectedMenuIndex(1) // Skip section header, select first command
+					setShowContextMenu(true)
+					
+					// Request command list
+					vscode.postMessage({ type: "requestCommands" })
 					return
 				}
 
