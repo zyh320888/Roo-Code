@@ -11,3 +11,6 @@ npm i -g n
 
 # 安装指定版本的Node.js
 n 20.19.2
+
+
+npm i -g pnpm
