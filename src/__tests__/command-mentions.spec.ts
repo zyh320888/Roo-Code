@@ -268,7 +268,7 @@ npm install
 		})
 
 		it("should not match invalid command patterns", () => {
-			const commandRegex = /\/([a-zA-Z0-9_\.-]+)(?=\s|$)/g
+			const commandRegex = /\/([a-zA-Z0-9_\.\-\u4e00-\u9fa5]+)(?=\s|$)/g
 
 			const invalidPatterns = ["/ space", "/with space", "/with/slash", "//double", "/with@symbol"]
 
@@ -278,6 +278,30 @@ npm install
 					// If it matches, it should not be the full invalid pattern
 					expect(match[0]).not.toBe(pattern)
 				}
+			})
+		})
+
+		it("should match Chinese command patterns", () => {
+			const commandRegex = /\/([a-zA-Z0-9_\.\-\u4e00-\u9fa5]+)(?=\s|$)/g
+
+			const validChinesePatterns = ["/部署", "/测试", "/构建环境", "/代码检查123"]
+
+			validChinesePatterns.forEach((pattern) => {
+				const match = pattern.match(commandRegex)
+				expect(match).toBeTruthy()
+				expect(match![0]).toBe(pattern)
+			})
+		})
+
+		it("should handle mixed Chinese and English commands", () => {
+			const commandRegex = /\/([a-zA-Z0-9_\.\-\u4e00-\u9fa5]+)(?=\s|$)/g
+
+			const mixedPatterns = ["/部署deploy", "/测试-test", "/构建环境_123"]
+
+			mixedPatterns.forEach((pattern) => {
+				const match = pattern.match(commandRegex)
+				expect(match).toBeTruthy()
+				expect(match![0]).toBe(pattern)
 			})
 		})
 	})
@@ -355,6 +379,42 @@ npm install
 			input = "Some text\n/build the project"
 			result = await callParseMentions(input)
 			expect(result).toContain("Command 'build'")
+		})
+
+		it("should parse Chinese command mentions", async () => {
+			const commandContent = "# 部署环境\n\n运行以下命令：\n```bash\nnpm install\nnpm run build\nnpm run deploy\n```"
+			mockGetCommand.mockResolvedValue({
+				name: "部署",
+				content: commandContent,
+				source: "project",
+				filePath: "/project/.roo/commands/部署.md",
+			})
+
+			const input = "/部署 请帮我部署项目到生产环境"
+			const result = await callParseMentions(input)
+
+			expect(mockGetCommand).toHaveBeenCalledWith("/test/cwd", "部署")
+			expect(result).toContain('<command name="部署">')
+			expect(result).toContain(commandContent)
+			expect(result).toContain("</command>")
+			expect(result).toContain("请帮我部署项目到生产环境")
+		})
+
+		it("should handle mixed Chinese and English command names", async () => {
+			const commandContent = "# 构建测试\n\n运行测试命令"
+			mockGetCommand.mockResolvedValue({
+				name: "测试-test",
+				content: commandContent,
+				source: "project",
+				filePath: "/project/.roo/commands/测试-test.md",
+			})
+
+			const input = "/测试-test 执行测试用例"
+			const result = await callParseMentions(input)
+
+			expect(mockGetCommand).toHaveBeenCalledWith("/test/cwd", "测试-test")
+			expect(result).toContain('<command name="测试-test">')
+			expect(result).toContain(commandContent)
 		})
 	})
 })

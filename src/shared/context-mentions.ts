@@ -58,7 +58,8 @@ export const mentionRegex =
 export const mentionRegexGlobal = new RegExp(mentionRegex.source, "g")
 
 // Regex to match command mentions like /command-name anywhere in text
-export const commandRegexGlobal = /(?:^|\s)\/([a-zA-Z0-9_\.-]+)(?=\s|$)/g
+// Supports Chinese characters (CJK Unified Ideographs range: \u4e00-\u9fa5)
+export const commandRegexGlobal = /(?:^|\s)\/([a-zA-Z0-9_\.\-\u4e00-\u9fa5]+)(?=\s|$)/g
 
 export interface MentionSuggestion {
 	type: "file" | "folder" | "git" | "problems"
