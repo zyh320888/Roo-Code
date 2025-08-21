@@ -41,7 +41,8 @@ export class TaskManager {
     this.socket = socket;
 
     // Rejoin all subscribed tasks.
-    for (const taskId of this.subscribedTasks.keys()) {
+    const subscribedTaskIds = Array.from(this.subscribedTasks.keys());
+    for (const taskId of subscribedTaskIds) {
       try {
         socket.emit(TaskSocketEvents.JOIN, { taskId });
 
@@ -58,7 +59,8 @@ export class TaskManager {
     }
 
     // Subscribe to any pending tasks.
-    for (const task of this.pendingTasks.values()) {
+    const pendingTasksList = Array.from(this.pendingTasks.values());
+    for (const task of pendingTasksList) {
       await this.subscribeToTask(task, socket);
     }
 
@@ -73,7 +75,8 @@ export class TaskManager {
     this.socket = socket;
 
     // Rejoin all subscribed tasks.
-    for (const taskId of this.subscribedTasks.keys()) {
+    const subscribedTaskIds = Array.from(this.subscribedTasks.keys());
+    for (const taskId of subscribedTaskIds) {
       try {
         socket.emit(TaskSocketEvents.JOIN, { taskId });
 
@@ -97,7 +100,8 @@ export class TaskManager {
 
     const unsubscribePromises = [];
 
-    for (const taskId of this.subscribedTasks.keys()) {
+    const subscribedTaskIds = Array.from(this.subscribedTasks.keys());
+    for (const taskId of subscribedTaskIds) {
       unsubscribePromises.push(this.unsubscribeFromTask(taskId, socket));
     }
 
