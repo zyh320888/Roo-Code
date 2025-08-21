@@ -31,18 +31,48 @@ export function insertMention(
 	value: string,
 	isSlashCommand: boolean = false,
 ): { newValue: string; mentionIndex: number } {
-	// Handle slash command selection (only when explicitly selecting a slash command)
-	if (isSlashCommand) {
-		return {
-			newValue: value,
-			mentionIndex: 0,
-		}
-	}
-
 	const beforeCursor = text.slice(0, position)
 	const afterCursor = text.slice(position)
 
-	// Find the position of the last '@' symbol before the cursor
+	// Handle slash command selection - check if we're in a slash command context
+	if (isSlashCommand) {
+		// Check if we're replacing an existing slash command
+		if (text.startsWith("/") && !text.includes(" ")) {
+			// Replace the entire slash command
+			return {
+				newValue: value,
+				mentionIndex: 0,
+			}
+		}
+		
+		// For inline command insertion (like in @ mention context)
+		// Find the position of the last '@' symbol before the cursor
+		const lastAtIndex = beforeCursor.lastIndexOf("@")
+		
+		// Process the value - no space escaping needed for commands
+		let processedValue = value
+		
+		let newValue: string
+		let mentionIndex: number
+		
+		if (lastAtIndex !== -1 && text.includes("@")) {
+			// If there's an '@' symbol, replace everything after it with the new command
+			const beforeMention = text.slice(0, lastAtIndex)
+			const afterCursorContent = /^[a-zA-Z0-9\s]*$/.test(afterCursor)
+				? afterCursor.replace(/^[^\s]*/, "")
+				: afterCursor
+			newValue = beforeMention + processedValue + " " + afterCursorContent
+			mentionIndex = lastAtIndex
+		} else {
+			// If there's no '@' symbol, insert the command at the cursor position
+			newValue = beforeCursor + processedValue + " " + afterCursor
+			mentionIndex = position
+		}
+		
+		return { newValue, mentionIndex }
+	}
+
+	// Handle regular @ mentions
 	const lastAtIndex = beforeCursor.lastIndexOf("@")
 
 	// Process the value - escape spaces if it's a file path

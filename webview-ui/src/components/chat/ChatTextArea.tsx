@@ -303,34 +303,33 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				}
 
 				if (type === ContextMenuOptionType.Command && value) {
-					// Handle command selection.
 					setSelectedMenuIndex(-1)
 					setShowContextMenu(false)
+					setSelectedType(null)
 
-          
-          let newInputValue = inputValue
-          
-          // 如果inputValue最后两个字符是@/，去掉
-          if(inputValue.endsWith("@/")){
-            newInputValue = inputValue.slice(0, -2)
-          }
-          // 如果inputValue最后一个字符是@，去掉
-          else if (inputValue.endsWith("@")) {
-            newInputValue = inputValue.slice(0, -1)
-          }
+					if (textAreaRef.current) {
+						const insertValue = `/${value}`
 
-					// Insert the command mention into the textarea
-					const commandMention = `/${value}`
-					setInputValue(newInputValue + commandMention + " ")
-					setCursorPosition(newInputValue.length + commandMention.length + 1)
-					setIntendedCursorPosition(newInputValue.length + commandMention.length + 1)
+						const { newValue, mentionIndex } = insertMention(
+							textAreaRef.current.value,
+							cursorPosition,
+							insertValue,
+							true, // isSlashCommand
+						)
 
-					// Focus the textarea
-					setTimeout(() => {
-						if (textAreaRef.current) {
-							textAreaRef.current.focus()
-						}
-					}, 0)
+						setInputValue(newValue)
+						const newCursorPosition = newValue.indexOf(" ", mentionIndex + insertValue.length) + 1
+						setCursorPosition(newCursorPosition)
+						setIntendedCursorPosition(newCursorPosition)
+
+						// Scroll to cursor.
+						setTimeout(() => {
+							if (textAreaRef.current) {
+								textAreaRef.current.blur()
+								textAreaRef.current.focus()
+							}
+						}, 0)
+					}
 					return
 				}
 
