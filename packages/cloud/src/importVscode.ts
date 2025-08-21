@@ -46,5 +46,6 @@ export async function importVscode(): Promise<
   } catch (error) {
     // Log the original error for debugging.
     console.warn('VS Code module not available in this environment:', error);
+    return undefined;
   }
 }
