@@ -1,6 +1,6 @@
 {
   "name": "@roo-code/cloud",
-  "version": "0.17.0",
+  "version": "0.19.0",
   "description": "SDK for integrating with Roo Code Cloud",
   "publishConfig": {
     "access": "public",
