@@ -15,6 +15,7 @@ import {
 	geminiModels,
 	groqModels,
 	ioIntelligenceModels,
+	myCustomAIModels,
 	mistralModels,
 	moonshotModels,
 	openAiNativeModels,
@@ -505,6 +506,11 @@ export const MODELS_BY_PROVIDER: Record<
 		id: "mistral",
 		label: "Mistral",
 		models: Object.keys(mistralModels),
+	},
+	mycustomai: {
+		id: "mycustomai",
+		label: "MyCustomAI",
+		models: Object.keys(myCustomAIModels),
 	},
 	moonshot: {
 		id: "moonshot",
