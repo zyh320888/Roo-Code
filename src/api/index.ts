@@ -36,6 +36,8 @@ import {
 	DoubaoHandler,
 	ZAiHandler,
 	FireworksHandler,
+	RooHandler,
+	FeatherlessHandler,
 } from "./providers"
 import { NativeOllamaHandler } from "./providers/native-ollama"
 
@@ -143,6 +145,12 @@ export function buildApiHandler(configuration: ProviderSettings): ApiHandler {
 			return new FireworksHandler(options)
 		case "io-intelligence":
 			return new IOIntelligenceHandler(options)
+		case "roo":
+			// Never throw exceptions from provider constructors
+			// The provider-proxy server will handle authentication and return appropriate error codes
+			return new RooHandler(options)
+		case "featherless":
+			return new FeatherlessHandler(options)
 		default:
 			apiProvider satisfies "gemini-cli" | undefined
 			return new AnthropicHandler(options)
